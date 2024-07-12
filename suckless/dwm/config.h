@@ -52,7 +52,6 @@ static const Rule rules[] = {
   { "pavucontrol",            NULL,       NULL,       0,            1,           -1 },
   { "Pcmanfm",            NULL,       NULL,       0,            1,           -1 },
   { "copyq",            NULL,       NULL,       0,            1,           -1 },
-  { "Alacritty",            NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -90,6 +89,9 @@ static const char *browser[]   = { "/home/pavel/.config/thorium/thorium", NULL }
 static const char *fm[]    = { "pcmanfm", NULL };
 static const char *clipboard[]    = { "copyq", "toggle", NULL };
 
+static const char scratchpadname[] = "scratchpad";
+static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
+
 #include <X11/XF86keysym.h>
 
 static const char *brightness_up[]    =   { "brightnessctl", "-c", "backlight", "set", "+10%",  NULL };
@@ -100,7 +102,7 @@ static const Key keys[] = {
 	//{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_d,      spawn,          SHCMD("rofi -show drun") },
   	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-  	{ MODKEY|ShiftMask,             XK_Return, spawn,          SHCMD("alacritty")},
+	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
   	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
