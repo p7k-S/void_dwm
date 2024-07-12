@@ -12,7 +12,7 @@ bluetooth () {
     COMMAND="$(ps -e | grep 'bluetoothd' | tail -c2)"
 
     case "$COMMAND" in
-     "d") printf "^d^ ^b#458588^^c#1d2021^  ^b#83a598^ ^d^%s" "^b#83a598^^c#1d2021^$(bluetoothctl info | grep Name: | sed 's/^[[:space:]]*//g' | sed -e "s/ //g" | sed 's/Name://g') " ;;
+     "d") printf "^c$darkblue^ ^d^%s" "^c$darkblue^$(bluetoothctl info | grep Name: | sed 's/^[[:space:]]*//g' | sed -e "s/ //g" | sed 's/Name://g') " ;;
       *) 
         printf "" ;;
     esac
@@ -20,13 +20,14 @@ bluetooth () {
 
 cpu() {
   cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
-  printf "^d^ ^b#d65d0e^^c#1d2021^   ^b#fe8019^ $cpu_val"
+
+  printf " ^c$green^  $cpu_val"
 }
 
 pkg_updates() {
   # updates=$({ timeout 20 doas xbps-install -un 2>/dev/null || true; } | wc -l) # void
   updates=$(xbps-install -un | wc -l) # void
-  printf "^d^ ^b#d65d0e^^c#1d2021^   ^b#fe8019^ $updates"
+  printf " ^c$green^   $updates"
   # printf "  ^c$green^   $updates"" updates"
   #updates=$({ timeout 20 checkupdates 2>/dev/null || true; } | wc -l) # arch
   # updates=$({ timeout 20 aptitude search '~U' 2>/dev/null || true; } | wc -l)  # apt (ubuntu, debian etc)
@@ -34,11 +35,12 @@ pkg_updates() {
 
 battery() {
   get_capacity="$(cat /sys/class/power_supply/BAT1/capacity)"
-  printf "^d^ ^b#d79921^^c#1d2021^   ^b#fabd2f^ $get_capacity"
+  printf "^c$blue^   $get_capacity"
 }
 
 brightness() {
-  printf "^d^ ^b#cc241d^^c#1d2021^   ^b#fb4934^ %.0f\n" $(cat /sys/class/backlight/*/brightness)
+  printf "^c$white^   "
+  printf "^c$white^%.0f\n" $(cat /sys/class/backlight/*/brightness)
 }
 
 # mic () {
@@ -55,19 +57,19 @@ mic () {
     COMMAND="$(pactl list | sed -n '/^Source/,/^$/p' | grep Mute | grep yes | tail -c2)"
 
     case "$COMMAND" in
-     "s") printf "^d^^c$black^ ^b$darkblue^ "$(pactl list | sed -n '/^Source/,/^$/p' | grep yes | wc -l)" ^b$blue^ " ;;
-      *) printf "^d^ ^c$blue^  " ;;
+     "s") printf "^c$blue^ "$(pactl list | sed -n '/^Source/,/^$/p' | grep yes | wc -l)"  " ;;
+      *) printf "^c$red^  " ;;
     esac
 }
 
 vol() {
   vol="$(pamixer --get-volume)"
-  printf "%s %s\\n" "$vol%"
+  printf "%s %s\\n" "^c$blue^$vol%"
 }
 
 mem() {
-  printf "^d^ ^b#98971a^^c#1d2021^   "
-  printf "^b#b8bb26^ $(free -h | awk '/^Mem/ { print $3 }' | sed s/i//g)"
+  printf "^c$blue^  "
+  printf "^c$blue^ $(free -h | awk '/^Mem/ { print $3 }' | sed s/i//g)"
 }
 
 dwm_keyboard () {
@@ -83,19 +85,19 @@ dwm_keyboard () {
 
   esac
 
-  printf "^d^ ^b#b16286^^c#1d2021^   ^b#d3869b^ $LAYOUT "
+  printf "^c$red^ $LAYOUT "
 }
 
 wlan() {
 	case "$(cat /sys/class/net/wl*/operstate 2>/dev/null)" in
-	up) printf "^d^ ^b#689d6a^^c#1d2021^ 󰤨  ^b#8ec07c^ $(iwctl station wlp4s0 show | grep "Connected network" | awk '{print $NF}')" ;;
-	down) printf "^d^ ^b#cc241d^^c#1d2021^ 󰤭  ^b#fb4934^ Disconnected" ;;
+	up) printf "^c$green^ 󰤨 ^d^%s" " ^c$green^$(iwctl station wlp4s0 show | grep "Connected network" | awk '{print $NF}') " ;;
+	down) printf "^c$red^ 󰤭 ^d^%s" " ^c$red^Disconnected " ;;
 	esac
 }
 
 clock() {
-	printf "^d^^c$black^ ^b$darkblue^ 󱑆  "
-	printf "^c$black^^b$blue^ $(date '+%H:%M') ^d^ "
+	printf "^ c$white^󱑆 "
+	printf "^c$white^$(date '+%H:%M')  "
 }
 
 while true; do

@@ -18,7 +18,7 @@ static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#00aa00";//005577 3971ed style=Bold
+static const char col_cyan[]        = "#ebdbb2";//#89b482 005577 00aa00 3971ed style=Bold
 static const char *colors[][3]      = {                        
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -27,7 +27,17 @@ static const char *colors[][3]      = {
 
 /* tagging */
 //static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-static const char *tags[] = { "1", "2", "3", "4", "5" };
+/*static const char *tags[] = { "1", "2", "3", "4", "5" };*/
+/*static const char *tags[] = { "𝜶", "𝜷", "𝜸", "𝜹", "𝜺", "𝜻", "𝜼", "𝜽", "𝜾" };*/
+/*static const char *tags[] = { "𝜶", "𝜷", "𝜸", "𝜹", "𝜺" };*/
+/*static const char *tags[] = { "α", "β", "ɣ", "δ", "ε", "ζ", "η", "θ", "ι" };*/
+static const char *tags[] = { "α", "β", "ɣ", "δ", "ε" };
+
+
+static const unsigned int ulinepad	= 0;	/* horizontal padding between the underline and tag */
+static const unsigned int ulinestroke	= 0;	/* thickness / height of the underline */
+static const unsigned int ulinevoffset	= 0;	/* how far above the bottom of the bar the line should appear */
+static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -38,7 +48,7 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 1,       0,           -1 },
 	{ "brave-browser",  NULL,       NULL,       1 << 1,       0,           -1 },
-	{ "chromium",  NULL,       NULL,       1 << 1,       0,           -1 },
+	{ "thorium-browser",  NULL,       NULL,       1 << 1,       0,           -1 },
   { "pavucontrol",            NULL,       NULL,       0,            1,           -1 },
   { "Pcmanfm",            NULL,       NULL,       0,            1,           -1 },
   { "copyq",            NULL,       NULL,       0,            1,           -1 },
@@ -76,7 +86,7 @@ static const char *termcmd[]  = { "st", NULL };
 
 static const char *screeshot[] = { "flameshot", "gui", NULL };
 static const char *Telegram[]  = { "telegram-desktop", NULL };
-static const char *browser[]   = { "chromium", NULL };
+static const char *browser[]   = { "/home/pavel/.config/thorium/thorium", NULL };
 static const char *fm[]    = { "pcmanfm", NULL };
 static const char *clipboard[]    = { "copyq", "toggle", NULL };
 
