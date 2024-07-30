@@ -20,12 +20,14 @@ vim.keymap.set("n", "<leader>x", "<esc>:w<CR>:bd<CR>")
 vim.keymap.set("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true })
 vim.keymap.set("v", "<leader>/", "gc", { desc = "comment toggle", remap = true })
 
--- This is going to get me cancelled
-vim.keymap.set("i", "<C-c>", "<Esc>")
-
 --Lsp
 vim.keymap.set("n", "<leader>]", ":LspStop<CR>")
 vim.keymap.set("n", "<leader>[", ":LspStart<CR>")
 
 -- get path and name of file
 vim.keymap.set("n", "<leader>ff", ":file<CR>")
+
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")

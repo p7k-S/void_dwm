@@ -20,7 +20,7 @@ lspconfig.cssls.setup {
 lspconfig.clangd.setup {
     capabilities = capabilities
 }
-lspconfig.golangci_lint_ls.setup {
+lspconfig.gopls.setup {
     capabilities = capabilities
 }
 lspconfig.rust_analyzer.setup {

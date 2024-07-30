@@ -1,4 +1,9 @@
-function set_colors(color)
+require('kanagawa').setup({
+    commentStyle = { italic = true },
+    keywordStyle = { italic = false},
+})
+
+local function set_colors(color)
     color = color or "kanagawa-dragon"
     vim.cmd.colorscheme(color)
 

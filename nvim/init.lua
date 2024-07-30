@@ -14,8 +14,3 @@ require("plugins.comments")
 require("plugins.undotree")
 require("plugins.telescope")
 require("plugins.treesitter")
-
---autocmd({"BufWritePre"}, {
---    pattern = "*",
---    command = [[%s/\s\+$//e]],
---})
