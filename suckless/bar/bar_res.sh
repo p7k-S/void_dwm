@@ -58,9 +58,10 @@ brightness() {
 # }
 mic () {
     COMMAND="$(pactl list | sed -n '/^Source/,/^$/p' | grep Mute | grep yes | tail -c2)"
+
     case "$COMMAND" in
-     "s") printf "^d^ ^b#d65d0e^^c#1d2021^ "$(pactl list | sed -n '/^Source/,/^$/p' | grep yes | wc -l)" ^b#fe8019^^c#1d2021^ " ;;
-      *) printf "^d^ ^b#d65d0e^^c#1d2021^  " ;;
+     "s") printf "^d^^c$black^ ^b$darkblue^ "$(pactl list | sed -n '/^Source/,/^$/p' | grep yes | wc -l)" ^b$blue^ " ;;
+      *) printf "^d^ ^c$blue^  " ;;
     esac
 }
 
@@ -92,7 +93,7 @@ dwm_keyboard () {
 
 wlan() {
 	case "$(cat /sys/class/net/wl*/operstate 2>/dev/null)" in
-	up) printf "^d^ ^b#98971a^^c#1d2021^ 󰤨  ^b#b8bb26^ $(iwctl station wlp4s0 show | grep "Connected network" | awk '{print $NF}')" ;;
+	up) printf "^d^ ^b#689d6a^^c#1d2021^ 󰤨  ^b#8ec07c^ $(iwctl station wlp4s0 show | grep "Connected network" | awk '{print $NF}')" ;;
 	down) printf "^d^ ^b#cc241d^^c#1d2021^ 󰤭  ^b#fb4934^ Disconnected" ;;
 	esac
 }
@@ -108,5 +109,5 @@ while true; do
   interval=$((interval + 1))
 
   # sleep 1 && xsetroot -name "$updates $(battery) $(brightness) $(dwm_keyboard)$(mic)$(vol)$(bluetooth)$(cpu)$(temp) $(mem) $(wlan) $(clock)"
-  sleep 1 && xsetroot -name "$(battery) $(mic)$(vol)$(bluetooth)$(wlan) $(clock)"
+  sleep 1 && xsetroot -name "$(battery) $(mic)$(vol)$(bluetooth) $(wlan) $(clock)"
 done
