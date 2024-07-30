@@ -1,0 +1,4 @@
+#!/bin/dash
+
+vol="$(pamixer --get-volume)"
+printf "%s%s\\n" "$vol%"

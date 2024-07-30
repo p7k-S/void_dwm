@@ -1,0 +1,8 @@
+#!/bin/dash
+
+cpu() {
+  cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
+
+  printf "^c$black^ ^b$green^ CPU"
+  printf "^c$white^ ^b$grey^ $cpu_val"
+}

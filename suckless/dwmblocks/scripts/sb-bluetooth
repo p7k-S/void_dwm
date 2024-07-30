@@ -1,0 +1,11 @@
+#!/bin/dash
+
+bluetooth () {
+    COMMAND="$(ps -e | grep 'bluetoothd' | tail -c2)"
+
+    case "$COMMAND" in
+     "d") printf "^c$black^ ^b$blue^  ^d^%s" " ^c$blue^$(bluetoothctl info | grep Name: | sed 's/^[[:space:]]*//g' | sed -e "s/ //g" | sed 's/Name://g')" ;;
+      *) 
+        printf "" ;;
+    esac
+}

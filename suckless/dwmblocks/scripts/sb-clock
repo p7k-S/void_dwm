@@ -1,0 +1,4 @@
+#!/bin/dash
+
+# printf "^c$black^ ^b$darkblue^ 󱑆  "
+printf "$(date '+%H:%M')"

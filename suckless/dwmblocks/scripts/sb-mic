@@ -1,0 +1,10 @@
+#!/bin/dash
+
+mic () {
+    COMMAND="$(pactl list | sed -n '/^Source/,/^$/p' | grep Mute | grep yes | tail -c2)"
+
+    case "$COMMAND" in
+     "s") printf "^c$blue^ "$(pactl list | sed -n '/^Source/,/^$/p' | grep yes | wc -l)"  " ;;
+      *) printf "^c$blue^  " ;;
+    esac
+}
