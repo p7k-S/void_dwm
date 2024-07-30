@@ -26,3 +26,6 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 --Lsp
 vim.keymap.set("n", "<leader>]", ":LspStop<CR>")
 vim.keymap.set("n", "<leader>[", ":LspStart<CR>")
+
+-- get path and name of file
+vim.keymap.set("n", "<leader>ff", ":file<CR>")
