@@ -19,3 +19,6 @@ vim.keymap.set("n", "<leader>x", "<esc>:w<CR>:bd<CR>")
 -- Comment
 vim.keymap.set("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true })
 vim.keymap.set("v", "<leader>/", "gc", { desc = "comment toggle", remap = true })
+
+-- This is going to get me cancelled
+vim.keymap.set("i", "<C-c>", "<Esc>")
