@@ -30,10 +30,10 @@ vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 -- vim.opt.incsearch = true
 
 vim.on_key(function(char)
-  if vim.fn.mode() == "n" then
-    local new_hlsearch = vim.tbl_contains({ "<CR>", "n", "N", "*", "#", "?", "/" }, vim.fn.keytrans(char))
-    if vim.opt.hlsearch:get() ~= new_hlsearch then vim.opt.hlsearch = new_hlsearch end
-  end
+    if vim.fn.mode() == "n" then
+        local new_hlsearch = vim.tbl_contains({ "<CR>", "n", "N", "*", "#", "?", "/" }, vim.fn.keytrans(char))
+        if vim.opt.hlsearch:get() ~= new_hlsearch then vim.opt.hlsearch = new_hlsearch end
+    end
 end, vim.api.nvim_create_namespace "auto_hlsearch")
 
-vim.opt.updatetime = 50  -- wtf?????
+vim.opt.updatetime = 50 -- wtf?????

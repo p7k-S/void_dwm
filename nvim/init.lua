@@ -7,7 +7,7 @@ require("config.mappings")
 --Plugins
 require("plugins.lsp")
 require("plugins.cmp")
-require("plugins.mason")
+-- require("plugins.mason")
 -- require("plugins.snipets")
 
 require("plugins.comments")

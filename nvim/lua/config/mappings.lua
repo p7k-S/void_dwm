@@ -22,3 +22,7 @@ vim.keymap.set("v", "<leader>/", "gc", { desc = "comment toggle", remap = true }
 
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>")
+
+--Lsp
+vim.keymap.set("n", "<leader>]", ":LspStop<CR>")
+vim.keymap.set("n", "<leader>[", ":LspStart<CR>")
