@@ -32,16 +32,35 @@ alias   r='doas reboot'
 alias   p='doas poweroff'
 alias   v='nvim'
 
-# alias ds="cd ~ && cd \$(find * -type d | fzf)"
-alias  sd="cd ~ && cd \$(fd --hidden --type d --exclude .git --exclude go | fzf-tmux)"
-alias  sf="fd --hidden --type f --exclude .git | fzf-tmux | xargs nvim"
-alias sdf="sd && sf"  # золото, еще добавить в tmux и просто ну ахуй
+# мясо
+alias  sd="cd ~ && cd \$(fd --color=auto --hidden --type d --exclude .git --exclude go | fzf-tmux)"
+alias  sf="fd --color=auto --hidden --type f --exclude .git | fzf-tmux | xargs nvim"
 
-# alias sdfcd="sd && pwd | xclip -selection clipboard && sf"  # золото, еще добавить в tmux и просто ну ахуй
+sdf() {
+    local string="$(fd --color=auto --hidden --exclude .git | fzf-tmux)"
+    
+    # Проверка на случай, если пользователь не сделал выбор
+    if [[ -z "$string" ]]; then
+        # echo "Выбор не сделан."
+        return 1
+    fi
 
+    local pref="$(echo "$string" | awk -F'/' '{OFS="/"; $NF=""; sub("/$", ""); print $0}')"
+    local suff="$(echo "$string" | awk -F'/' '{print $NF}')"
+
+    cd "$pref" || return 1  # Переход в директорию, проверяем на успешность
+
+    if [[ -z "$suff" ]]; then
+        v "$(fd --color=auto --hidden --type f --exclude .git | fzf-tmux)"
+    else
+        v "$suff"  # Открываем файл
+    fi
+}
+
+
+# tmux
 alias scr="tmux attach -t scrpad"
 alias tcode="sd && /home/pavel/.tmux/tcode.sh"
-# alias tcode="sd && pwd | xclip -selection clipboard && cd && clear && tmux attach -t code"
 
 # alias  sl='systemctl'
 
