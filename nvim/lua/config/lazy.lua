@@ -46,6 +46,8 @@ require("lazy").setup({
         }
     },
 
+    { 'ThePrimeagen/vim-be-good' },
+
     { 'nvim-treesitter/nvim-treesitter' },
     { 'rebelot/kanagawa.nvim' },
     { 'mbbill/undotree' },
