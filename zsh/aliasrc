@@ -1,0 +1,61 @@
+#!/bin/zsh
+
+alias ..='cd ..'
+alias cat='bat'
+alias cal='cal -m'
+
+alias ls='ls --color=auto'
+alias la='exa -la'
+alias  l='exa  -a'
+
+alias h='history'
+alias hl='history 0 | less'
+alias hs='history 0 | grep'
+alias hsi='history  0 | grep -i'
+
+# alias sudo='doas'
+
+alias   pi='ping ya.ru'
+
+alias  xi='doas xbps-install -Syu'
+alias  xq='xbps-query -Rs'
+alias  xr='doas xbps-remove'
+
+alias  bn='doas ln -s /etc/sv/bluetoothd/ /var/service && bluetoothctl'
+alias  bd='doas rm /var/service/bluetoothd'
+alias   r='doas reboot'
+alias   p='doas poweroff'
+alias   v='nvim'
+
+# мясо
+alias  sd="cd ~ && cd \$(fd --color=auto --hidden --type d --exclude .git --exclude go | fzf-tmux --height=15)"
+# alias  sf="fd --color=auto --hidden --type f --exclude .git | fzf-tmux --height=15 -m --preview="bat --color=always {}" | xargs nvim"
+alias  sf='nvim $(fzf-tmux --height=15 -m --preview="bat --color=always {}")'
+sdf() {
+    local string="$(fd --color=auto --hidden --exclude .git | fzf-tmux --height=15 --preview="bat --color=always {}" )"
+    
+    # Проверка на случай, если пользователь не сделал выбор
+    if [[ -z "$string" ]]; then
+        # echo "Выбор не сделан."
+        return 1
+    fi
+
+    local pref="$(echo "$string" | awk -F'/' '{OFS="/"; $NF=""; sub("/$", ""); print $0}')"
+    local suff="$(echo "$string" | awk -F'/' '{print $NF}')"
+
+    cd "$pref" || return 1  # Переход в директорию, проверяем на успешность
+
+    if [[ -z "$suff" ]]; then
+        sf
+    else
+        v "$suff"  # Открываем файл
+    fi
+}
+
+# tmux
+alias scr="tmux attach -t scrpad"
+alias code="tmux attach -t code"
+# alias tcode="sd && /home/pavel/.tmux/tcode.sh"
+
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
