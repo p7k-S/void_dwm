@@ -1,4 +1,4 @@
 #!/bin/dash
 
 get_capacity="$(cat /sys/class/power_supply/BAT1/capacity)"
-printf "$get_capacity"
+echo "$get_capacity"

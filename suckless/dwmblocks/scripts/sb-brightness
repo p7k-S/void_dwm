@@ -1,0 +1,4 @@
+#!/bin/dash
+
+# pkill -RTMIN+2 dwmblocks
+echo $(cat /sys/class/backlight/*/brightness)

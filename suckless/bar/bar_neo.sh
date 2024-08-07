@@ -6,7 +6,7 @@
 interval=0
 
 # load colors
-. ~/.config/suckless/bar/bar_themes/gruvchad
+. ~/.config/suckless/bar/bar_themes/tokyonight
 
 bluetooth () {
     COMMAND="$(ps -e | grep 'bluetoothd' | tail -c2)"
@@ -32,14 +32,14 @@ pkg_updates() {
   #updates=$({ timeout 20 checkupdates 2>/dev/null || true; } | wc -l) # arch
   # updates=$({ timeout 20 aptitude search '~U' 2>/dev/null || true; } | wc -l)  # apt (ubuntu, debian etc)
 }
-
+#  
 battery() {
   get_capacity="$(cat /sys/class/power_supply/BAT1/capacity)"
-  printf "^c$blue^   $get_capacity"
+  printf "^c$blue^ $get_capacity "
 }
 
 brightness() {
-  printf "^c$white^   "
+  # printf "^c$white^   "
   printf "^c$white^%.0f\n" $(cat /sys/class/backlight/*/brightness)
 }
 
@@ -90,14 +90,15 @@ dwm_keyboard () {
 
 wlan() {
 	case "$(cat /sys/class/net/wl*/operstate 2>/dev/null)" in
-	up) printf "^c$green^ 󰤨 ^d^%s" " ^c$green^$(iwctl station wlp4s0 show | grep "Connected network" | awk '{print $NF}') " ;;
-	down) printf "^c$red^ 󰤭 ^d^%s" " ^c$red^Disconnected " ;;
+	up) printf " ^c$green^$(iwctl station wlp4s0 show | grep "Connected network" | awk '{print $NF}') " ;;
+	down) printf "^c$red^ 󰤭 ^d^%s" ;;
 	esac
 }
 
 clock() {
-	printf "^ c$white^󱑆 "
-	printf "^c$white^$(date '+%H:%M')  "
+	# printf "^ c$white^󱑆 "
+	# printf "^c$white^$(date '+%H:%M')  "
+	printf "^c$white^$(date +"(%b) %Y-%m-%d (%a) %H:%M:%S") "
 }
 
 while true; do
@@ -105,5 +106,6 @@ while true; do
   [ $interval = 0 ] || [ $(($interval % 3600)) = 0 ] && updates=$(pkg_updates)
   interval=$((interval + 1))
 
-  sleep 1 && xsetroot -name "$updates $(battery) $(brightness) $(dwm_keyboard)$(mic)$(vol)$(bluetooth)$(cpu) $(mem) $(wlan) $(clock)"
+  # sleep 1 && xsetroot -name "$updates $(battery) $(brightness) $(dwm_keyboard)$(mic)$(vol)$(bluetooth)$(cpu) $(mem) $(wlan) $(clock)"
+  sleep 1 && xsetroot -name "$(battery) $(brightness) $(dwm_keyboard)$(mic)$(vol)$(bluetooth)$(wlan) $(clock)"
 done

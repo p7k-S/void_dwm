@@ -1,4 +1,14 @@
 #!/bin/dash
 
-vol="$(pamixer --get-volume)"
-printf "%s%s\\n" "$vol%"
+volume="$(pamixer --get-volume)"
+# dunstctl close-all
+# notify-send "Vol:$vol%"
+# dunstify -a "changeVolume" -u low -i audio-volume-high -h string:x-dunst-stack-tag:$msgTag \
+# -h int:value:"$vol" "Volume: ${vol}%"
+# notify-send -a "changeVolume" -h string:x-dunst-stack-tag:$msgTag -h int:value:"$volume" "Volume: ${volume}" --expire-time=1000
+
+# dunstctl history-pop
+# bar=$(seq --separator="─" 0 "$((vol / 5))" | sed 's/[0-9]//g')
+# dunstify -i $iconSound -r 2593 -u normal "    $bar"
+pkill -RTMIN+13 dwmblocks
+printf "%s%s\\n" "$volume%"
