@@ -4,7 +4,7 @@ require('kanagawa').setup({
 })
 
 local function set_colors(color)
-    -- color = color or "kanagawa"
+    -- color = color or "retrobox"
     color = color or "kanagawa-dragon"
     vim.cmd.colorscheme(color)
 

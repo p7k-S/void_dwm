@@ -17,9 +17,11 @@ alias hsi='history  0 | grep -i'
 
 alias   pi='ping ya.ru'
 
-alias  xi='doas xbps-install -Syu'
-alias  xq='xbps-query -Rs'
-alias  xr='doas xbps-remove'
+alias  xi='doas xbps-install -Syu '
+alias  xq='xbps-query -Rs '
+alias  xr='doas xbps-remove -R ' # с зависимостями только для этого пакета
+alias  xf='xbps-fetch '
+# alias  xri='doas xbps-remove && xi'
 
 alias  bn='doas ln -s /etc/sv/bluetoothd/ /var/service && bluetoothctl'
 alias  bd='doas rm /var/service/bluetoothd'

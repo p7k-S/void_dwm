@@ -19,7 +19,7 @@ alias la='exa -la'
 alias  l='exa  -a'
 
 # alias sudo='doas'
-#
+
 alias   pi='ping ya.ru'
 
 alias  xi='doas xbps-install -Syu'
@@ -34,10 +34,11 @@ alias   v='nvim'
 
 # мясо
 alias  sd="cd ~ && cd \$(fd --color=auto --hidden --type d --exclude .git --exclude go | fzf-tmux)"
-alias  sf="fd --color=auto --hidden --type f --exclude .git | fzf-tmux | xargs nvim"
+# alias  sf="fd --color=auto --hidden --type f --exclude .git | fzf-tmux -m --preview="bat --color=always {}" | xargs nvim"
+alias  sf='nvim $(fzf-tmux -m --preview="bat --color=always {}")'
 
 sdf() {
-    local string="$(fd --color=auto --hidden --exclude .git | fzf-tmux)"
+    local string="$(fd --color=auto --hidden --exclude .git | fzf-tmux --preview="bat --color=always {}" )"
     
     # Проверка на случай, если пользователь не сделал выбор
     if [[ -z "$string" ]]; then
@@ -51,7 +52,7 @@ sdf() {
     cd "$pref" || return 1  # Переход в директорию, проверяем на успешность
 
     if [[ -z "$suff" ]]; then
-        v "$(fd --color=auto --hidden --type f --exclude .git | fzf-tmux)"
+        sf
     else
         v "$suff"  # Открываем файл
     fi
@@ -60,7 +61,8 @@ sdf() {
 
 # tmux
 alias scr="tmux attach -t scrpad"
-alias tcode="sd && /home/pavel/.tmux/tcode.sh"
+alias code="tmux attach -t code"
+# alias tcode="sd && /home/pavel/.tmux/tcode.sh"
 
 # alias  sl='systemctl'
 
@@ -105,4 +107,4 @@ prompt_comment() {
 }
 
 export EDITOR=nvim
-# export BROWSER=/home/pavel/.config/thorium/thorium
+export BROWSER=/home/pavel/.config/thorium/thorium
