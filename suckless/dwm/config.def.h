@@ -9,7 +9,7 @@ static const unsigned int systrayonleft  = 0;   /* 0: systray in the right corne
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray        = 1;        /* 0 means no systray */
-static const int showbar            = 0;        /* 0 means no bar */
+static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "UbuntuMonoNerdFont:style=Bold:size=13:" };
 static const char dmenufont[]       =   "UbuntuMonoNerdFont:style=Bold:size=13:";
@@ -21,7 +21,7 @@ static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#9f9f9f";//#89b482 005577 00aa00 3971ed style=Bold
 static const char *colors[][3]      = {                        
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+	[SchemeNorm] = { col_gray3, col_gray0, col_gray2 },
 	[SchemeSel]  = { col_gray0, col_cyan,  col_cyan  },
 };
 
@@ -45,7 +45,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
+	// { "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 1,       0,           -1 },
 	{ "brave-browser",  NULL,       NULL,       1 << 1,       0,           -1 },
 	{ "thorium-browser",  NULL,       NULL,       1 << 1,       0,           -1 },
@@ -146,12 +146,12 @@ static const Key keys[] = {
     	{ MODKEY,                       XK_o,     spawn,           SHCMD("slock") }, //надо добавить чтоб в гибернейшн переходило
     	{ MODKEY,                       XK_x,     spawn,           SHCMD("pavucontrol") },
     	/* Add to keys[] array. With 0 as modifier, you are able to use the keys directly. */
-    	{ 0,                       XF86XK_AudioLowerVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
-    	{ 0,                       XF86XK_AudioMute,               spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ 0%") },
-    	{ 0,                       XF86XK_AudioRaiseVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
+    	{ 0,                       XF86XK_AudioLowerVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 dwmblocks") },
+    	{ 0,                       XF86XK_AudioMute,               spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ 0% && pkill -RTMIN+10 dwmblocks") },
+    	{ 0,                       XF86XK_AudioRaiseVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+10 dwmblocks") },
     	/* To use light add this to the keys[] array. Thanks Hritik14. */
-    	{ 0,                      XF86XK_MonBrightnessUp,   spawn, {.v = brightness_up } },
-    	{ 0,                      XF86XK_MonBrightnessDown, spawn, {.v = brightness_down } },
+    	{ 0,                      XF86XK_MonBrightnessUp,   spawn, {.v = brightness_up} },
+    	{ 0,                      XF86XK_MonBrightnessDown, spawn, {.v = brightness_down} },
 };
 
 /* button definitions */
