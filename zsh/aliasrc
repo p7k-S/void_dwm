@@ -4,7 +4,7 @@ alias ..='cd ..'
 alias cat='bat'
 alias cal='cal -m'
 
-alias ls='ls --colors'
+alias ls='exa'
 alias la='exa -la'
 alias  l='exa  -a'
 
@@ -28,6 +28,7 @@ alias  bd='doas rm /var/service/bluetoothd'
 alias   r='doas reboot'
 alias   p='doas poweroff'
 alias   v='nvim'
+alias   speedtest='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -'
 
 # мясо
 alias  sd="cd ~ && cd \$(fd --color=auto --hidden --type d --exclude .git --exclude go | fzf-tmux --height=15)"
