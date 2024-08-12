@@ -156,7 +156,7 @@ static const Key keys[] = {
     { 0,                       XF86XK_AudioRaiseVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
     { 0,                       XF86XK_AudioMute,               spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@  0%") },
     { 0,                       XF86XK_AudioRaiseVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
-    { 0,                       XF86XK_AudioMicMute,            spawn,  SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
+    { 0,                       XF86XK_AudioMicMute,            spawn,  SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle && dunstctl close-all && notify-send $(pactl get-source-mute @DEFAULT_SOURCE@)") },
     /* To use light add this to the keys[] array. Thanks Hritik14. */
     { 0,                      XF86XK_MonBrightnessUp,   spawn, {.v = brightness_up} },
     { 0,                      XF86XK_MonBrightnessDown, spawn, {.v = brightness_down} },
