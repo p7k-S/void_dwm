@@ -1,6 +1,6 @@
-dwm-6.1-pertag_without_bar.diff
-dwm-alwayscenter-20200625-f04cac6.diff
-dwm-noborderfloatingfix-6.2.diff
-dwm-scratchpad-20240321-061e9fe.diff
+dwm-6.1-pertag_without_bar.diff          musthave
+dwm-alwayscenter-20200625-f04cac6.diff   +-musthave
+dwm-noborderfloatingfix-6.2.diff         для кайфа
+dwm-scratchpad-20240321-061e9fe.diff     удобство
 
-dwm-status2d-systray-6.4.diff        можно просто систрей а можно и не можно оно в целом и не нужно
+dwm-status2d-systray-6.4.diff            +- хз  можно просто систрей а можно и не можно оно в целом и не нужно

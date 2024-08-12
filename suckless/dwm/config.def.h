@@ -2,14 +2,14 @@
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int gappx     = 0;        /* gap pixel between windows */
+static const unsigned int gappx     = 10;        /* gap pixel between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft  = 0;   /* 0: systray in the right corner, >0: systray on left of status text */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray        = 1;        /* 0 means no systray */
-static const int showbar            = 1;        /* 0 means no bar */
+static const int showbar            = 0;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "UbuntuMonoNerdFont:style=Bold:size=13:" };
 static const char dmenufont[]       =   "UbuntuMonoNerdFont:style=Bold:size=13:";
@@ -31,7 +31,10 @@ static const char *colors[][3]      = {
 /*static const char *tags[] = { "𝜶", "𝜷", "𝜸", "𝜹", "𝜺", "𝜻", "𝜼", "𝜽", "𝜾" };*/
 /*static const char *tags[] = { "𝜶", "𝜷", "𝜸", "𝜹", "𝜺" };*/
 /*static const char *tags[] = { "α", "β", "ɣ", "δ", "ε", "ζ", "η", "θ", "ι" };*/
-static const char *tags[] = { "α", "β", "ɣ", "δ", "ε" };
+// static const char *tags[] = { "α", "β", "ɣ", "δ", "ε" };
+// static const char *tags[] = { ">_", "www", ">>", "%&*", "𓂺" };
+// static const char *tags[] = { ">_", "www", "{}", "%&*", "~/" };
+static const char *tags[] = { "Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ", "Ⅴ" };
 
 
 static const unsigned int ulinepad	= 0;	/* horizontal padding between the underline and tag */
@@ -49,9 +52,10 @@ static const Rule rules[] = {
 	{ "Firefox",  NULL,       NULL,       1 << 1,       0,           -1 },
 	{ "brave-browser",  NULL,       NULL,       1 << 1,       0,           -1 },
 	{ "thorium-browser",  NULL,       NULL,       1 << 1,       0,           -1 },
-  { "pavucontrol",            NULL,       NULL,       0,            1,           -1 },
-  { "Pcmanfm",            NULL,       NULL,       0,            1,           -1 },
-  { "copyq",            NULL,       NULL,       0,            1,           -1 },
+	{ "telegram-desktop",  NULL,       NULL,       1 << 2,       0,           -1 },
+    { "pavucontrol",            NULL,       NULL,       0,            1,           -1 },
+    { "Pcmanfm",            NULL,       NULL,       0,            1,           -1 },
+    { "copyq",            NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -86,8 +90,8 @@ static const char *termcmd[]  = { "st", NULL };
 static const char *screeshot[] = { "flameshot", "gui", NULL };
 static const char *Telegram[]  = { "telegram-desktop", NULL };
 static const char *browser[]   = { "/home/pavel/.config/thorium/thorium", NULL };
-static const char *fm[]    = { "pcmanfm", NULL };
-static const char *clipboard[]    = { "copyq", "toggle", NULL };
+static const char *fm[]        = { "pcmanfm", NULL };
+static const char *clipboard[] = { "copyq", "toggle", NULL };
 
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
@@ -99,8 +103,8 @@ static const char *brightness_down[]  =   { "brightnessctl", "-c", "backlight", 
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	//{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_d,      spawn,          SHCMD("rofi -show drun") },
+	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
+	// { MODKEY,                       XK_d,      spawn,          SHCMD("rofi -show drun") },
   	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
   	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -136,22 +140,22 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_r,      quit,           {0} },
 
 	//own hotkeys
-	{ MODKEY,                       XK_v, spawn, 	 {.v = clipboard} },
-	{ 0,                            XK_Print, spawn,           {.v = screeshot} },
-    	{ MODKEY,                       XK_w,     spawn,           {.v = browser} },
-    	TAGKEYS(                        XK_w,                      1)
-    	{ MODKEY,                       XK_c,     spawn,           {.v = Telegram} },
-    	TAGKEYS(                        XK_c,                      2)
-    	{ MODKEY,                       XK_e,     spawn,           {.v = fm} },
-    	{ MODKEY,                       XK_o,     spawn,           SHCMD("slock") }, //надо добавить чтоб в гибернейшн переходило
-    	{ MODKEY,                       XK_x,     spawn,           SHCMD("pavucontrol") },
-    	/* Add to keys[] array. With 0 as modifier, you are able to use the keys directly. */
-    	{ 0,                       XF86XK_AudioLowerVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 dwmblocks") },
-    	{ 0,                       XF86XK_AudioMute,               spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ 0% && pkill -RTMIN+10 dwmblocks") },
-    	{ 0,                       XF86XK_AudioRaiseVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+10 dwmblocks") },
-    	/* To use light add this to the keys[] array. Thanks Hritik14. */
-    	{ 0,                      XF86XK_MonBrightnessUp,   spawn, {.v = brightness_up} },
-    	{ 0,                      XF86XK_MonBrightnessDown, spawn, {.v = brightness_down} },
+    { MODKEY,                       XK_v, spawn, 	 {.v = clipboard} },
+    { 0,                            XK_Print, spawn,           {.v = screeshot} },
+    { MODKEY,                       XK_w,     spawn,           {.v = browser} },
+    TAGKEYS(                        XK_w,                      1)
+    { MODKEY,                       XK_c,     spawn,           {.v = Telegram} },
+    TAGKEYS(                        XK_c,                      2)
+    { MODKEY,                       XK_e,     spawn,           {.v = fm} },
+    { MODKEY,                       XK_o,     spawn,           SHCMD("slock") }, //надо добавить чтоб в гибернейшн переходило
+    { MODKEY,                       XK_x,     spawn,           SHCMD("pavucontrol") },
+    /* Add to keys[] array. With 0 as modifier, you are able to use the keys directly. */
+    { 0,                       XF86XK_AudioLowerVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 dwmblocks") },
+    { 0,                       XF86XK_AudioMute,               spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ 0% && pkill -RTMIN+10 dwmblocks") },
+    { 0,                       XF86XK_AudioRaiseVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+10 dwmblocks") },
+    /* To use light add this to the keys[] array. Thanks Hritik14. */
+    { 0,                      XF86XK_MonBrightnessUp,   spawn, {.v = brightness_up} },
+    { 0,                      XF86XK_MonBrightnessDown, spawn, {.v = brightness_down} },
 };
 
 /* button definitions */
