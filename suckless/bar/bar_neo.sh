@@ -34,13 +34,18 @@ pkg_updates() {
 }
 #  
 battery() {
-  get_capacity="$(cat /sys/class/power_supply/BAT1/capacity)"
-  printf "^c$blue^ $get_capacity "
+  battery_capacity=$(cat /sys/class/power_supply/BAT1/capacity)
+  printf "^c$blue^ $battery_capacity "
+  # Проверяем, меньше ли он 50
+  
+  # if [ "$battery_capacity" -lt 50 ]; then
+  #     brightnessctl -c backlight set 0%
+  # fi
 }
 
 brightness() {
-  # printf "^c$white^   "
-  printf "^c$white^%.0f\n" $(cat /sys/class/backlight/*/brightness)
+    # printf "^c$white^   "
+    printf "^c$white^%.0f\n" $(cat /sys/class/backlight/*/brightness)
 }
 
 # mic () {

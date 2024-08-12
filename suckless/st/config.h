@@ -5,7 +5,12 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "UbuntuMonoNerdFont:pixelsize=20:antialias=true:autohint=true"; //:style=Bold
+static char *font = "UbuntuMonoNerdFont:pixelsize=21:antialias=true:autohint=true"; //:style=Bold
+// static char *font = "HackNerdFont:pixelsize=17:antialias=true:autohint=true"; //:style=Bold
+// static char *font = "JetBrainsMonoNLNerdFontMono:pixelsize=18:antialias=true:autohint=true"; //:style=Bold
+// static char *font = "IosevkaNerdFontMono:pixelsize=17:antialias=true:autohint=true"; //:style=Bold
+// static char *font = "JetBrainsMonoNLNerdFont:pixelsize=16:antialias=true:autohint=true"; //:style=Bold
+// static char *font = "SauceCodeProNerdFont:pixelsize=19:antialias=true:autohint=true"; //:style=Bold
 // static char *font = "TerminessNerdFont:pixelsize=20:antialias=true:autohint=true"; //:style=Bold
 static char *font2[] = { "NotoColorEmoji:pixelsize=20:antialias=true:autohint=true" };
 static int borderpx = 2;
@@ -108,7 +113,7 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-float alpha = 0.8;
+float alpha = 0.9;
 // float alpha = 1;
 float alphaOffset = 0.0;
 float alphaUnfocus;
@@ -135,7 +140,7 @@ static const char *colorname[] = {
 	/* more colors can be added after 255 to use with DefaultXX */
 	"#add8e6", /* 256 -> cursor */
 	"#555555", /* 257 -> rev cursor*/
-	"#1a1b1c", /* 258 -> bg */ //#282828
+	"#111111", /* 258 -> bg */ //#282828
 	"#ebdbb2", /* 259 -> fg */
 };
 
@@ -254,9 +259,9 @@ static Shortcut shortcuts[] = {
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
-	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
-	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
+	{ ControlMask,          0x3d,       zoom,           {.f = +1} },
+	{ ControlMask,          0x2d,        zoom,           {.f = -1} },
+	{ ControlMask,          0x30,        zoomreset,      {.f =  0} },
 	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
 	{ MODKEY,               XK_c,           clipcopy,       {.i =  0} },
