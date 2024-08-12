@@ -150,9 +150,13 @@ static const Key keys[] = {
     { MODKEY,                       XK_o,     spawn,           SHCMD("slock") }, //надо добавить чтоб в гибернейшн переходило
     { MODKEY,                       XK_x,     spawn,           SHCMD("pavucontrol") },
     /* Add to keys[] array. With 0 as modifier, you are able to use the keys directly. */
-    { 0,                       XF86XK_AudioLowerVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 dwmblocks") },
-    { 0,                       XF86XK_AudioMute,               spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ 0% && pkill -RTMIN+10 dwmblocks") },
-    { 0,                       XF86XK_AudioRaiseVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+10 dwmblocks") },
+    // { 0,                       XF86XK_AudioLowerVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 dwmblocks") },
+    // { 0,                       XF86XK_AudioLowerVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 dwmblocks") },
+    // { 0,                       XF86XK_AudioMute,               spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ 0% && pkill -RTMIN+10 dwmblocks") },
+    { 0,                       XF86XK_AudioRaiseVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
+    { 0,                       XF86XK_AudioMute,               spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@  0%") },
+    { 0,                       XF86XK_AudioRaiseVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
+    { 0,                       XF86XK_AudioMicMute,            spawn,  SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
     /* To use light add this to the keys[] array. Thanks Hritik14. */
     { 0,                      XF86XK_MonBrightnessUp,   spawn, {.v = brightness_up} },
     { 0,                      XF86XK_MonBrightnessDown, spawn, {.v = brightness_down} },
