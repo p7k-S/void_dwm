@@ -58,6 +58,17 @@ bindkey '^ ' autosuggest-accept
 # c-f
 # c-p
 # c-n
+# c-w  backward-word-kill
+
+bindkey -e
+# select-word-style bash
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word
+bindkey "^[[P" delete-char
+
+# Bash-like navigation
+autoload -U select-word-style
+select-word-style bash
 
 #man
 export LESS_TERMCAP_mb=$'\e[1;32m'
