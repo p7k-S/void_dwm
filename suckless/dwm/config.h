@@ -169,7 +169,7 @@ static const Key keys[] = {
     /* To use light add this to the keys[] array. Thanks Hritik14. */
     { 0,                      XF86XK_MonBrightnessUp,     spawn, SHCMD("brightnessctl -c backlight set +10% && pkill -RTMIN+5 dwmblocks") },
     { 0,                      XF86XK_MonBrightnessDown,   spawn, SHCMD("brightnessctl -c backlight set 10%- && pkill -RTMIN+5 dwmblocks") },
-    { 0, XF86XK_Calculator,                        spawn,                  {.v = (const char*[]){ "st", "-e", "bc", "-l", NULL } } },
+    { 0, XF86XK_Calculator,                        spawn,                  {.v = (const char*[]){ "st", "-e", "python", NULL } } },
 };
 
 /* button definitions */
