@@ -1,10 +1,8 @@
 #!/bin/dash
 
-pkg_updates() {
   # updates=$({ timeout 20 doas xbps-install -un 2>/dev/null || true; } | wc -l) # void
-  updates=$(xbps-install -un | wc -l) # void
-  printf " ^c$green^   $updates"
+updates=$(xbps-install -un | wc -l) # void
+printf $updates
   # printf "  ^c$green^   $updates"" updates"
   #updates=$({ timeout 20 checkupdates 2>/dev/null || true; } | wc -l) # arch
   # updates=$({ timeout 20 aptitude search '~U' 2>/dev/null || true; } | wc -l)  # apt (ubuntu, debian etc)
-}

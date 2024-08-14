@@ -1,8 +1,8 @@
 #!/bin/dash
 
-cpu() {
-  cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
+cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
 
-  printf "^c$black^ ^b$green^ CPU"
-  printf "^c$white^ ^b$grey^ $cpu_val"
-}
+printf "$cpu_val "
+
+# printf "^d^ ^b#cc241d^^c#1d2021^  ^b#fb4934^ $(paste <(cat /sys/class/thermal/thermal_zone*/type) <(cat /sys/class/thermal/thermal_zone*/temp) | column -s $'\t' -t | sed 's/\(.\)..$/.\1°C/' | awk '{print $2}')"
+printf $(cat /sys/class/thermal/thermal_zone0/temp | sed 's/\(.\)..$/.\1°C/')

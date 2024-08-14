@@ -1,4 +1,6 @@
 #!/bin/dash
 
-# pkill -RTMIN+2 dwmblocks
-echo $(cat /sys/class/backlight/*/brightness)
+brightness="$(cat /sys/class/backlight/*/brightness)"
+
+# pkill -RTMIN+11 dwmblocks
+echo $brightness

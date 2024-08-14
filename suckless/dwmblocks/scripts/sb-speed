@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# awk '{
+#     if (rx) {
+#         printf (" %.0f/%.0f\n", ($2-rx)/1048576, ($10-tx)/1048576)
+#     } else {
+#     rx=$2; tx=$10;
+#     }
+# }' \
+# <(grep wlp4s0 /proc/net/dev) \
+# <(sleep 1; grep wlp4s0 /proc/net/dev)
+
+INTERFACE=wlp4s0
+
+echo "down (KiB/s)   up (KiB/s)"
+while :
+do
+  awk '{
+  if (rx) {
+    printf ("%.0f              %.0f\n", ($2-rx)/1024, ($10-tx)/1024)
+  } else {
+    rx=$2; tx=$10;
+  }
+}' \
+    <(grep $INTERFACE /proc/net/dev) \
+    <(sleep 1; grep $INTERFACE /proc/net/dev)
+done

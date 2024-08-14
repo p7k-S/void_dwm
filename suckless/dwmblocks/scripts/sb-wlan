@@ -1,8 +1,8 @@
 #!/bin/dash
 
-wlan() {
-	case "$(cat /sys/class/net/wl*/operstate 2>/dev/null)" in
-	up) printf "^c$black^ ^b$green^ 󰤨  ^d^%s" " ^c$green^$(iwctl station wlp4s0 show | grep "Connected network" | awk '{print $NF}')" ;;
-	down) printf "^c$black^ ^b$red^ 󰤭  ^d^%s" " ^c$red^Disconnected" ;;
-	esac
-}
+# up) printf "%s%s\\n" "$(tail -n1 /proc/net/wireless | cut -d" "  -f3- | awk '{print $1}' | rev | cut -c 2- | rev)%" " ^c#4faf03^󰤨  ^d^$(iwctl station wlp4s0 show | grep "Connected network" | awk '{print $NF}')" ;;
+
+case "$(cat /sys/class/net/wl*/operstate 2>/dev/null)" in
+up) printf "%s%s\\n" "$(tail -n1 /proc/net/wireless | cut -d" "  -f3- | awk '{print $1}' | rev | cut -c 2- | rev)% " "$(iwctl station wlp4s0 show | grep "Connected network" | awk '{print $NF}')" ;;
+down) printf "󰤭 " ;;
+esac

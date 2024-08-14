@@ -9,7 +9,7 @@ static const unsigned int systrayonleft  = 0;   /* 0: systray in the right corne
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray        = 1;        /* 0 means no systray */
-static const int showbar            = 0;        /* 0 means no bar */
+static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "UbuntuMonoNerdFont:style=Bold:size=13:" };
 static const char dmenufont[]       =   "UbuntuMonoNerdFont:style=Bold:size=13:";
@@ -42,6 +42,10 @@ static const unsigned int ulinestroke	= 0;	/* thickness / height of the underlin
 static const unsigned int ulinevoffset	= 0;	/* how far above the bottom of the bar the line should appear */
 static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
 
+const char *float_term[] = {"st", "-n", "stfloat", "-g", "120x34" , NULL };
+// const char *st_speed[] =   {"st", "-n", "speed"  , "-g", "40x40","-e", "tmux",  NULL };
+const char *st_speed[] =   {"st", "-n", "speed"  , "-g", "40x20","-e", "/home/pavel/.config/suckless/dwmblocks/scripts/sb-speed",  NULL };
+
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
@@ -56,6 +60,9 @@ static const Rule rules[] = {
     { "pavucontrol",            NULL,       NULL,       0,            1,           -1 },
     { "Pcmanfm",            NULL,       NULL,       0,            1,           -1 },
     { "copyq",            NULL,       NULL,       0,            1,           -1 },
+    { "St",     "stfloat",         NULL,       0,             1,            -1 },
+    { "St",     "speed",         NULL,       0,             1,            -1 },
+
 };
 
 /* layout(s) */
@@ -98,8 +105,8 @@ static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34
 
 #include <X11/XF86keysym.h>
 
-static const char *brightness_up[]    =   { "brightnessctl", "-c", "backlight", "set", "+10%",  NULL };
-static const char *brightness_down[]  =   { "brightnessctl", "-c", "backlight", "set", "10%-",  NULL };
+// static const char *brightness_up[]    =   { "brightnessctl", "-c", "backlight", "set", "+10%",  NULL };
+// static const char *brightness_down[]  =   { "brightnessctl", "-c", "backlight", "set", "10%-",  NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -140,6 +147,8 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_r,      quit,           {0} },
 
 	//own hotkeys
+    { MODKEY|ShiftMask,			    XK_Return, spawn,          {.v = float_term } },
+    { MODKEY,			            XK_o,     spawn,           {.v = st_speed}  },
     { MODKEY,                       XK_v, spawn, 	           {.v = clipboard} },
     { 0,                            XK_Print, spawn,           {.v = screeshot} },
     { MODKEY,                       XK_w,     spawn,           {.v = browser} },
@@ -147,19 +156,20 @@ static const Key keys[] = {
     { MODKEY,                       XK_c,     spawn,           {.v = Telegram} },
     TAGKEYS(                        XK_c,                      2)
     { MODKEY,                       XK_e,     spawn,           {.v = fm} },
-    { MODKEY,                       XK_o,     spawn,           SHCMD("slock") }, //надо добавить чтоб в гибернейшн переходило
     { MODKEY,                       XK_x,     spawn,           SHCMD("pavucontrol") },
     /* Add to keys[] array. With 0 as modifier, you are able to use the keys directly. */
     // { 0,                       XF86XK_AudioRaiseVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
-    // { 0,                       XF86XK_AudioLowerVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 dwmblocks") },
-    // { 0,                       XF86XK_AudioMute,               spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ 0% && pkill -RTMIN+10 dwmblocks") },
-    { 0,                       XF86XK_AudioRaiseVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
-    { 0,                       XF86XK_AudioLowerVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
-    { 0,                       XF86XK_AudioMute,               spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@  0%") },
-    { 0,                       XF86XK_AudioMicMute,            spawn,  SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle && dunstctl close-all && notify-send $(pactl get-source-mute @DEFAULT_SOURCE@)") },
+    // { 0,                       XF86XK_AudioLowerVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
+    // { 0,                       XF86XK_AudioMute,               spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@  0%") },
+    { 0,                       XF86XK_AudioRaiseVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+10 dwmblocks") },
+    { 0,                       XF86XK_AudioLowerVolume,        spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 dwmblocks") },
+    { 0,                       XF86XK_AudioMute,               spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@  0% && pkill -RTMIN+10 dwmblocks") },
+    { 0,                       XF86XK_AudioMicMute,            spawn,  SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle && dunstctl close-all && notify-send $(pactl get-source-mute @DEFAULT_SOURCE@) && pkill -RTMIN+3 dwmblocks") },
+	// { Mod4Mask|ShiftMask,                  XK_z,                       spawn,  SHCMD("notify-send aldskjf && pkill -RTMIN+4 dwmblocks") },
     /* To use light add this to the keys[] array. Thanks Hritik14. */
-    { 0,                      XF86XK_MonBrightnessUp,   spawn, {.v = brightness_up} },
-    { 0,                      XF86XK_MonBrightnessDown, spawn, {.v = brightness_down} },
+    { 0,                      XF86XK_MonBrightnessUp,     spawn, SHCMD("brightnessctl -c backlight set +10% && pkill -RTMIN+5 dwmblocks") },
+    { 0,                      XF86XK_MonBrightnessDown,   spawn, SHCMD("brightnessctl -c backlight set 10%- && pkill -RTMIN+5 dwmblocks") },
+    { 0, XF86XK_Calculator,                        spawn,                  {.v = (const char*[]){ "st", "-e", "bc", "-l", NULL } } },
 };
 
 /* button definitions */
